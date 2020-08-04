@@ -26,7 +26,7 @@ Here are some results to compare.
 
 ```
 Request % / ms - Find all the cities
-	PostgREST	Quarkus Reactive	SpringBoot Standard	Go App Standard
+'PostgREST'	'Quarkus-Reactive'	'SpringBoot-Standard'	'Go-App'
 50.00%	144	607	2265	119
 66.00%	178	622	2349	146
 75.00%	191	634	2388	168
@@ -42,7 +42,7 @@ Request % / ms - Find all the cities
 
 ```
 CPU USAGE (%)
-SpringBoot Data Rest	Quarkus Reactive Native	Go App	PostgREST
+'SpringBoot-Data-Rest'	'Quarkus-Reactive-Native'	'Go-App'	'PostgREST'
 34.92	23.06	38.07	40.45
 95.51	37.22	79.29	81.45
 95.74	35.22	81.42	82.16
@@ -111,7 +111,7 @@ SpringBoot Data Rest	Quarkus Reactive Native	Go App	PostgREST
 
 ```
 MEMORY USAGE (%)
-SpringBoot Data Rest	Quarkus Reactive Native	Go App	PostgREST
+'SpringBoot-Data-Rest'	'Quarkus-Reactive-Native'	'Go-App'	'PostgREST'
 35.44	3.5 	0.4	0.26
 35.44	3.66	0.4	0.48
 35.44	3.79	0.4	0.63
