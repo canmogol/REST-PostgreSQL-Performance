@@ -1,0 +1,91 @@
+version: '3'
+
+services:
+
+  ################
+  # postgrest-db #
+  ################
+  postgrest-db:
+    container_name: postgrest-db
+    image: postgres:11-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - DB_ANON_ROLE=${DB_ANON_ROLE}
+      - DB_SCHEMA=${DB_SCHEMA}
+    volumes:
+      # anything in initdb directory is created in the database
+      # see "How to extend this image" section at https://hub.docker.com/r/_/postgres/
+      - "./initdb:/docker-entrypoint-initdb.d"
+    networks:
+      - postgrest-backend
+    restart: always
+
+
+  #############
+  # postgrest #
+  #############
+  postgrest:
+    container_name: postgrest
+    image: postgrest/postgrest:latest
+    ports:
+      - "3000:3000"
+    environment:
+      # The standard connection URI format, documented at
+      # https://www.postgresql.org/docs/current/static/libpq-connect.html#LIBPQ-CONNSTRING
+      - PGRST_DB_URI=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgrest-db:5432/${POSTGRES_DB}
+      # The name of which database schema to expose to REST clients
+      - PGRST_DB_SCHEMA=${DB_SCHEMA}
+      # The database role to use when no client authentication is provided
+      - PGRST_DB_ANON_ROLE=${DB_ANON_ROLE}
+    networks:
+      - postgrest-backend
+    restart: always
+
+
+  #############
+  # spring-data-rest #
+  #############
+  spring-data-rest:
+    container_name: spring-data-rest
+    image: canmogol/spring-data-rest:latest
+    ports:
+    - "9090:9090"
+    networks:
+      - postgrest-backend
+    restart: always
+
+
+  #############
+  # quarkus-hibernate-orm-resteasy-native #
+  #############
+  quarkus-hibernate-orm-resteasy-native:
+    container_name: quarkus-hibernate-orm-resteasy-native
+    image: canmogol/quarkus-hibernate-orm-resteasy-native:latest
+    ports:
+    - "8080:8080"
+    networks:
+      - postgrest-backend
+    restart: always
+
+  
+  #############
+  # go-postgresql-rest:latest #
+  #############
+  go-postgresql-rest:
+    container_name: go-postgresql-rest
+    image: canmogol/go-postgresql-rest:latest
+    ports:
+    - "8001:8001"
+    networks:
+      - postgrest-backend
+    restart: always
+
+
+
+networks:
+  postgrest-backend:
+    driver: bridge
