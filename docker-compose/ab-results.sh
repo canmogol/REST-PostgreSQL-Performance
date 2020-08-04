@@ -14,7 +14,7 @@ See the following statistics for each application.
 ############################################################
 # PostgREST CONTAINER 
 ############################################################
--> % ab -n 500 -c 20 "http://localhost:9090/city"                                                     
+-> % ab -n 500 -c 20 "http://localhost:3000/city"
 This is ApacheBench, Version 2.3 <$Revision: 1430300 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
@@ -28,42 +28,43 @@ Completed 500 requests
 Finished 500 requests
 
 
-Server Software:        
+Server Software:        postgrest/7.0.1
 Server Hostname:        localhost
-Server Port:            9090
+Server Port:            3000
 
 Document Path:          /city
-Document Length:        6914 bytes
+Document Length:        393280 bytes
 
 Concurrency Level:      20
-Time taken for tests:   1.416 seconds
+Time taken for tests:   3.623 seconds
 Complete requests:      500
 Failed requests:        0
 Write errors:           0
-Total transferred:      3556000 bytes
-HTML transferred:       3457000 bytes
-Requests per second:    353.07 [#/sec] (mean)
-Time per request:       56.645 [ms] (mean)
-Time per request:       2.832 [ms] (mean, across all concurrent requests)
-Transfer rate:          2452.22 [Kbytes/sec] received
+Total transferred:      196734000 bytes
+HTML transferred:       196640000 bytes
+Requests per second:    138.01 [#/sec] (mean)
+Time per request:       144.913 [ms] (mean)
+Time per request:       7.246 [ms] (mean, across all concurrent requests)
+Transfer rate:          53031.19 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
 Connect:        0    0   0.1      0       1
-Processing:     9   55  29.3     50     238
-Waiting:        8   45  24.0     41     190
-Total:          9   55  29.3     50     238
+Processing:    23  143  62.4    144     329
+Waiting:       22  141  62.0    141     326
+Total:         23  143  62.5    144     329
 
 Percentage of the requests served within a certain time (ms)
-  50%     50
-  66%     60
-  75%     67
-  80%     72
-  90%     86
-  95%    110
-  98%    142
-  99%    176
- 100%    238 (longest request)
+  50%    144
+  66%    178
+  75%    191
+  80%    202
+  90%    224
+  95%    243
+  98%    256
+  99%    274
+ 100%    329 (longest request)
+
 
 
 
@@ -93,34 +94,34 @@ Document Path:          /city
 Document Length:        381046 bytes
 
 Concurrency Level:      20
-Time taken for tests:   14.346 seconds
+Time taken for tests:   15.308 seconds
 Complete requests:      500
 Failed requests:        0
 Write errors:           0
 Total transferred:      190548500 bytes
 HTML transferred:       190523000 bytes
-Requests per second:    34.85 [#/sec] (mean)
-Time per request:       573.850 [ms] (mean)
-Time per request:       28.692 [ms] (mean, across all concurrent requests)
-Transfer rate:          12970.82 [Kbytes/sec] received
+Requests per second:    32.66 [#/sec] (mean)
+Time per request:       612.303 [ms] (mean)
+Time per request:       30.615 [ms] (mean, across all concurrent requests)
+Transfer rate:          12156.24 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    0   0.3      0       2
-Processing:    40  561  76.8    571     705
-Waiting:       37  558  76.6    568     699
-Total:         42  561  76.6    571     705
+Connect:        0    0   0.2      0       2
+Processing:    47  598  75.0    607     784
+Waiting:       41  595  74.9    603     782
+Total:         48  598  74.9    607     785
 
 Percentage of the requests served within a certain time (ms)
-  50%    571
-  66%    584
-  75%    597
-  80%    603
-  90%    626
-  95%    642
-  98%    653
-  99%    670
- 100%    705 (longest request)
+  50%    607
+  66%    622
+  75%    634
+  80%    643
+  90%    664
+  95%    683
+  98%    698
+  99%    714
+ 100%    785 (longest request)
 
 
 
@@ -149,31 +150,88 @@ Document Path:          /city/search/findByPopulationGreaterThanEqual?population
 Document Length:        1297892 bytes
 
 Concurrency Level:      20
-Time taken for tests:   57.713 seconds
+Time taken for tests:   56.815 seconds
 Complete requests:      500
 Failed requests:        0
 Write errors:           0
 Total transferred:      649045000 bytes
 HTML transferred:       648946000 bytes
-Requests per second:    8.66 [#/sec] (mean)
-Time per request:       2308.506 [ms] (mean)
-Time per request:       115.425 [ms] (mean, across all concurrent requests)
-Transfer rate:          10982.57 [Kbytes/sec] received
+Requests per second:    8.80 [#/sec] (mean)
+Time per request:       2272.608 [ms] (mean)
+Time per request:       113.630 [ms] (mean, across all concurrent requests)
+Transfer rate:          11156.05 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
 Connect:        0    0   0.1      0       1
-Processing:   703 2278 322.1   2303    3953
-Waiting:      128 1579 294.2   1610    3042
-Total:        703 2278 322.1   2303    3953
+Processing:   713 2240 291.8   2265    3450
+Waiting:      118 1550 262.7   1565    2674
+Total:        713 2240 291.8   2265    3450
 
 Percentage of the requests served within a certain time (ms)
-  50%   2303
-  66%   2382
-  75%   2437
-  80%   2466
-  90%   2547
-  95%   2636
-  98%   2806
-  99%   3359
- 100%   3953 (longest request)
+  50%   2265
+  66%   2349
+  75%   2388
+  80%   2425
+  90%   2529
+  95%   2643
+  98%   2832
+  99%   2900
+ 100%   3450 (longest request)
+
+
+
+############################################################
+# GO APP - STANDARD IMPLEMENTATION
+############################################################
+-> % ab -n 500 -c 20 "http://localhost:8001/cities/"
+This is ApacheBench, Version 2.3 <$Revision: 1430300 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking localhost (be patient)
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Finished 500 requests
+
+
+Server Software:        
+Server Hostname:        localhost
+Server Port:            8001
+
+Document Path:          /cities/
+Document Length:        381341 bytes
+
+Concurrency Level:      20
+Time taken for tests:   3.220 seconds
+Complete requests:      500
+Failed requests:        0
+Write errors:           0
+Total transferred:      190719000 bytes
+HTML transferred:       190670500 bytes
+Requests per second:    155.27 [#/sec] (mean)
+Time per request:       128.810 [ms] (mean)
+Time per request:       6.441 [ms] (mean, across all concurrent requests)
+Transfer rate:          57836.66 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    0   0.1      0       1
+Processing:    18  127  61.5    119     358
+Waiting:       18  124  61.7    117     357
+Total:         18  127  61.5    119     358
+
+Percentage of the requests served within a certain time (ms)
+  50%    119
+  66%    146
+  75%    168
+  80%    181
+  90%    213
+  95%    234
+  98%    277
+  99%    309
+ 100%    358 (longest request)
+

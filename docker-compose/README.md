@@ -26,18 +26,18 @@ Here are some results to compare.
 
 ```
 Find all the cities
-SpringBoot-1000REQ/20CONC, SpringBoot-10_000REQ/50CONC, PostgREST–1000REQ/20CONC, PostgREST–10_000REQ/50CONC
-147	524	39	100
-168	569	46	111
-186	607	53	120
-194	640	55	126
-227	836	67	145
-262	995	75	161
-299	1248	87	181
-337	1387	98	201
-384	3091	131	482
+	PostgREST	Quarkus Reactive	SpringBoot Standard	Go App Standard
+50.00%	144	607	2265	119
+66.00%	178	622	2349	146
+75.00%	191	634	2388	168
+80.00%	202	643	2425	181
+90.00%	224	664	2529	213
+95.00%	243	683	2643	234
+98.00%	256	698	2832	277
+99.00%	274	714	2900	309
+100.00%	329	785	3450	358
 ```
-![Performance Diagram](diagrams/performance.png)
+![Performance Diagram](diagrams/app-performances.png)
 
 
 "compose-postgrest"
