@@ -25,8 +25,7 @@ ab -n 100 -c 10 "http://172.0.0.1:3000/city?population=gte.1"
 Here are some results to compare.
 
 ```
-Request % / ms - Find all the cities
-'PostgREST'	'Quarkus-Reactive'	'SpringBoot-Standard'	'Go-App'
+'Request%/ms' 'PostgREST'	'Quarkus-Reactive'	'SpringBoot-Standard'	'Go-App'
 50.00%	144	607	2265	119
 66.00%	178	622	2349	146
 75.00%	191	634	2388	168
