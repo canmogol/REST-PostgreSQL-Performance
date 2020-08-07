@@ -34,7 +34,10 @@ func main() {
 	router := mux.NewRouter()
 
 	// Get all cities
-	router.HandleFunc("/cities/", GetCitys).Methods("GET")
+	router.HandleFunc("/city/", GetCitys).Methods("GET")
+
+	// Get all cities
+	router.HandleFunc("/city/", AddCity).Methods("POST")
 
 	// Create a city
 	log.Fatal(http.ListenAndServe(":8001", router))
@@ -70,6 +73,25 @@ func GetCitys(w http.ResponseWriter, r *http.Request) {
 	var response = JSONResponse{Type: "success", Data: cities}
 
 	json.NewEncoder(w).Encode(response)
+}
+
+// AddCity adds a city
+func AddCity(w http.ResponseWriter, r *http.Request) {
+	var city City
+	decoder := json.NewDecoder(r.Body)
+	decoder.Decode(&city)
+
+	// insert city
+	insertStatement := "INSERT INTO city (name, countrycode, district, population) VALUES ($1, $2, $3, $4)"
+	result, err := db.Exec(insertStatement, city.Name, city.Countrycode, city.District, city.Population)
+
+	if err != nil {
+		fmt.Printf("%v\n", err)
+		http.Error(w, http.StatusText(500), 500)
+		return
+	}
+
+	json.NewEncoder(w).Encode(result)
 }
 
 // DB set up
