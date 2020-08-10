@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+
+  ################
+  # postgrest-db #
+  ################
+  postgrest-db:
+    container_name: postgrest-db
+    image: postgres:11-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - DB_ANON_ROLE=${DB_ANON_ROLE}
+      - DB_SCHEMA=${DB_SCHEMA}
+    volumes:
+      # anything in initdb directory is created in the database
+      # see "How to extend this image" section at https://hub.docker.com/r/_/postgres/
+      - "./initdb:/docker-entrypoint-initdb.d"
+    networks:
+      - postgrest-backend
+    restart: always
+
+
+  #############
+  # fatjar-pg #
+  #############
+  spring-data-rest:
+    container_name: fatjar-pg
+    image: canmogol/fatjar-pg:latest
+    ports:
+    - "8091:8091"
+    networks:
+      - postgrest-backend
+    restart: always
+
+
+networks:
+  postgrest-backend:
+    driver: bridge
