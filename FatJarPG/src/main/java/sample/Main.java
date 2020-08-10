@@ -16,7 +16,9 @@ public class Main {
     }
 
     private void exampleServer() {
-        final Optional<DB> optionalDB = DB.create(DB.Type.JDBC, "jdbc:postgresql://postgrest-db/postgres?user=postgres&password=postgres");
+        final String connectionUrl = Optional.ofNullable(System.getenv("POSTGRESQL_CONNECTION_URL"))
+          .orElse("jdbc:postgresql://postgrest-db/postgres?user=postgres&password=postgres&connections=100");
+        final Optional<DB> optionalDB = DB.create(DB.Type.JDBC, connectionUrl);
         if (!optionalDB.isPresent()) {
             throw new NoDatabaseFound("could not connect to db.");
         }

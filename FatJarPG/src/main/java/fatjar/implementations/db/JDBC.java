@@ -14,11 +14,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class JDBC implements DB {
 
-    public static final int NUMBER_OF_CONNECTIONS = 100;
+    public static final int defaultNumberOfConnections = 100;
 
     private final List<Connection> connections = new ArrayList<>();
 
@@ -28,10 +31,24 @@ public class JDBC implements DB {
         final Driver driver = new Driver();
         final int majorVersion = driver.getMajorVersion();
         log("postgresql driver version " + majorVersion);
-        for (int i = 0; i < NUMBER_OF_CONNECTIONS; i++) {
-            connections.add(DriverManager.getConnection(jdbcConnectionURL));
+        final Map<String, String> parameters = getParameters(jdbcConnectionURL);
+        final Integer connectionPoolSize = Integer.valueOf(
+          parameters.getOrDefault("connections", String.valueOf(defaultNumberOfConnections)));
+        for (int i = 0; i < connectionPoolSize; i++) {
+            this.connections.add(DriverManager.getConnection(jdbcConnectionURL));
         }
-        log(connections.size() + " connections created.");
+        log(this.connections.size() + " connections created.");
+    }
+
+    private Map<String, String> getParameters(String jdbcConnectionURL) {
+      if (jdbcConnectionURL.split("\\?").length == 2) {
+        final String[] keyValues = jdbcConnectionURL.split("\\?")[1].split("&");
+        return Stream.of(keyValues)
+          .map(kv -> kv.split("="))
+          .collect(Collectors.toMap(kv -> kv[0], kv -> kv[1]));
+      } else {
+          return Collections.emptyMap();
+      }
     }
 
     @Override
@@ -89,7 +106,7 @@ public class JDBC implements DB {
     }
 
     private Connection getNextConnection() {
-        return connections.get((cursor++) % NUMBER_OF_CONNECTIONS);
+        return connections.get((cursor++) % defaultNumberOfConnections);
     }
 
     private <T> String getTableName(Class<T> typeClass)
