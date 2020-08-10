@@ -119,19 +119,24 @@ public class UndertowServer implements Server {
             // create server object
             io.undertow.Undertow server = io.undertow.Undertow.builder()
                     .addHttpListener(port, hostname)
-                    .setHandler(new UndertowHttpHandler()).build();
+                    .setHandler(new UndertowHttpHandler())
+                    .setIoThreads(100)
+                    .setWorkerThreads(100)
+                    .build();
 
             String services = pathFunctions.values().stream()
                     .flatMap(map -> map.keySet().stream())
                     .collect(Collectors.toSet())
                     .stream()
                     .collect(Collectors.joining(","));
+            Log.info("services: " + services);
 
             // start server
             server.start();
 
 
         } catch (RuntimeException e) {
+            Log.error("Got error while starting the server.", e);
             throw e;
         }
     }
