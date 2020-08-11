@@ -35,6 +35,7 @@ services:
     - "8091:8091"
     environment:
       - JAVA_ARGS=-Xmx512M
+      - POSTGRESQL_CONNECTION_URL=jdbc:postgresql://postgrest-db/postgres?user=postgres&password=postgres&connections=100
     networks:
       - postgrest-backend
     restart: always
