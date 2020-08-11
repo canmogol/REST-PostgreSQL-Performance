@@ -3,7 +3,7 @@
 You can build the project with this command,
 
 ```
-mvn clean install -P pgsqldb,gson,undertow,sample
+mvn clean install 
 ```
 
 Use the following command to start the application with its database.

@@ -18,7 +18,6 @@ public class CurrentDB {
     public static DB create(DB.Type type, String name) {
         String key = type.name() + "/" + name;
         if (!dbMap.containsKey(key)) {
-            String packageName = CurrentDB.class.getPackage().getName();
             try {
                 JDBC entityDB = new JDBC(name);
                 dbMap.put(key, entityDB);

@@ -28,11 +28,13 @@ services:
   #############
   # fatjar-pg #
   #############
-  spring-data-rest:
+  fatjar-pg:
     container_name: fatjar-pg
     image: canmogol/fatjar-pg:latest
     ports:
     - "8091:8091"
+    environment:
+      - JAVA_ARGS=-Xmx512M
     networks:
       - postgrest-backend
     restart: always

@@ -3,6 +3,7 @@ package fatjar.implementations.db;
 
 import fatjar.DB;
 import org.postgresql.Driver;
+import org.postgresql.hostchooser.HostRequirement;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -25,6 +26,11 @@ public class JDBC implements DB {
     private int cursor = 0;
 
     public JDBC(String jdbcConnectionURL) throws SQLException {
+        HostRequirement hostRequirement = HostRequirement.any;
+        hostRequirement = HostRequirement.primary;
+        hostRequirement = HostRequirement.secondary;
+        hostRequirement = HostRequirement.preferSecondary;
+        System.out.println("hostRequirement = " + hostRequirement.name());
         final Driver driver = new Driver();
         final int majorVersion = driver.getMajorVersion();
         log("postgresql driver version " + majorVersion);

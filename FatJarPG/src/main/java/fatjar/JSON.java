@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface JSON {
 
     static JSON create() {
-        return JSON.create(Type.GsonJSON);
+        return JSON.create(Type.DslJsonPlatform);
     }
 
     static JSON create(Type type) {
@@ -19,7 +19,7 @@ public interface JSON {
     Optional<String> toJson(Object object);
 
     enum Type {
-        GensonJSON, JacksonJSON, GsonJSON
+        GensonJSON, JacksonJSON, GsonJSON, DslJsonPlatform
     }
 
 }
