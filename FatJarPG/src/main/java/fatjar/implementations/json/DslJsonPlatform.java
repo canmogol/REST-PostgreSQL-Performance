@@ -1,5 +1,6 @@
 package fatjar.implementations.json;
 
+import com.dslplatform.json.DslJson;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import fatjar.JSON;
@@ -7,13 +8,12 @@ import fatjar.Log;
 
 import java.util.Optional;
 
-public class GsonJSON implements JSON {
+public class DslJson implements JSON {
 
-    private final Gson gson;
+    private final DslJson<Object> json;
 
-    public GsonJSON() {
-        GsonBuilder builder = new GsonBuilder();
-        gson = builder.create();
+    public DslJson() {
+        json = new DslJson<Object>();
     }
 
     public <T> Optional<T> fromJson(String json, Class<T> tClass) {
