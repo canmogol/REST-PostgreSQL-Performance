@@ -1,0 +1,85 @@
+version: '3'
+
+services:
+
+  ################
+  # postgrest-db #
+  ################
+  postgrest-db:
+    container_name: postgrest-db
+    image: postgres:11-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - DB_ANON_ROLE=${DB_ANON_ROLE}
+      - DB_SCHEMA=${DB_SCHEMA}
+    volumes:
+      # anything in initdb directory is created in the database
+      # see "How to extend this image" section at https://hub.docker.com/r/_/postgres/
+      - "./initdb:/docker-entrypoint-initdb.d"
+    networks:
+      - postgrest-backend
+    restart: always
+
+
+  #############
+  # fatjar-pg #
+  #############
+  fatjar:
+    image: canmogol/fatjar-pg:latest
+    ports:
+    - "8091:8091"
+    environment:
+      - JAVA_ARGS=-Xmx512M
+      - POSTGRESQL_CONNECTION_URL=jdbc:postgresql://postgrest-db/postgres?user=postgres&password=postgres&connections=100
+    networks:
+      - postgrest-backend
+    restart: always
+    labels:
+      - "traefik.http.routers.fatjar.rule=Host(`fatjar.docker.localhost`)"
+
+
+  ####################
+  #  spring-gateway  #
+  ####################
+  spring-gateway:
+    container_name: spring-gateway
+    image: spring-gateway:0.0.1-SNAPSHOT
+    ports:
+    - "8081:8080"
+    environment:
+      - CITY_REST_URL=http://192.168.68.110:8091/city
+      - JAVA_ARGS=-Xmx512M
+    networks:
+      - postgrest-backend
+    restart: always
+
+
+  ####################
+  #  traefik-proxy   #
+  ####################
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:v2.3
+    # Enables the web UI and tells Traefik to listen to docker
+    command: --api.insecure=true --providers.docker
+    ports:
+      # The HTTP port
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+    depends_on: 
+      - fatjar
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - postgrest-backend
+
+
+networks:
+  postgrest-backend:
+    driver: bridge
