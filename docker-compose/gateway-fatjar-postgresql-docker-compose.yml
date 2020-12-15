@@ -32,6 +32,8 @@ services:
     container_name: fatjar
     image: canmogol/fatjar-pg:latest
     ports:
+    # FatJar will answer the Requests on http://DOCKER_HOST:8091/city
+    # such as, http://192.168.68.110:8091/city
     - "8091:8091"
     environment:
       - JAVA_ARGS=-Xmx512M
@@ -52,6 +54,8 @@ services:
     ports:
     - "8081:8081"
     environment:
+      # 192.168.68.110 is the Docker Host's IP, this URL belongs to the FatJar application defined in the "fatjar" service.
+      # This IP should be updated accordingly.
       - CITY_REST_URL=http://192.168.68.110:8091/city
       - JAVA_TOOL_OPTIONS= -XX:MaxRAMFraction=1 -XX:MaxDirectMemorySize=40M -Xmx512m -XX:MaxMetaspaceSize=100m -XX:ReservedCodeCacheSize=240M -Xss4M
     networks:

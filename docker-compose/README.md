@@ -24,7 +24,7 @@ ab -n 100 -c 10 "http://172.0.0.1:3000/city?population=gte.1"
 ab -n 100 -c 10 "http://172.0.0.1:8081/city"
 
 # 100 requests, 10 concurrent calls, find all the cities on Traefik
-ab -H Host:fatjar.docker.localhost -n 100 -c 10 "http://centos/city"
+ab -H Host:fatjar.docker.localhost -n 100 -c 10 "http://172.0.0.1/city"
 ```
 
 
