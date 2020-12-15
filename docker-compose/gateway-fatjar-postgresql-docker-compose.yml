@@ -29,6 +29,7 @@ services:
   # fatjar-pg #
   #############
   fatjar:
+    container_name: fatjar
     image: canmogol/fatjar-pg:latest
     ports:
     - "8091:8091"
@@ -49,10 +50,10 @@ services:
     container_name: spring-gateway
     image: spring-gateway:0.0.1-SNAPSHOT
     ports:
-    - "8081:8080"
+    - "8081:8081"
     environment:
       - CITY_REST_URL=http://192.168.68.110:8091/city
-      - JAVA_ARGS=-Xmx512M
+      - JAVA_TOOL_OPTIONS= -XX:MaxRAMFraction=1 -XX:MaxDirectMemorySize=40M -Xmx512m -XX:MaxMetaspaceSize=100m -XX:ReservedCodeCacheSize=240M -Xss4M
     networks:
       - postgrest-backend
     restart: always
@@ -62,6 +63,7 @@ services:
   #  traefik-proxy   #
   ####################
   reverse-proxy:
+    container_name: reverse-proxy
     # The official v2 Traefik docker image
     image: traefik:v2.3
     # Enables the web UI and tells Traefik to listen to docker
