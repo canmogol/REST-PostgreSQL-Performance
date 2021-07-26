@@ -36,11 +36,12 @@ func main() {
 	// Get all cities
 	router.HandleFunc("/city/", GetCitys).Methods("GET")
 
-	// Get all cities
-	router.HandleFunc("/city/", AddCity).Methods("POST")
+	port := ":8001"
+
+	log.Println("listenning on port " + port)
 
 	// Create a city
-	log.Fatal(http.ListenAndServe(":8001", router))
+	log.Fatal(http.ListenAndServe(port, router))
 }
 
 // GetCitys get all cities
@@ -75,28 +76,9 @@ func GetCitys(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 }
 
-// AddCity adds a city
-func AddCity(w http.ResponseWriter, r *http.Request) {
-	var city City
-	decoder := json.NewDecoder(r.Body)
-	decoder.Decode(&city)
-
-	// insert city
-	insertStatement := "INSERT INTO city (name, countrycode, district, population) VALUES ($1, $2, $3, $4)"
-	result, err := db.Exec(insertStatement, city.Name, city.Countrycode, city.District, city.Population)
-
-	if err != nil {
-		fmt.Printf("%v\n", err)
-		http.Error(w, http.StatusText(500), 500)
-		return
-	}
-
-	json.NewEncoder(w).Encode(result)
-}
-
 // DB set up
 func setupDB() *sql.DB {
-	dbinfo := fmt.Sprintf("host=postgrest-db port=5432 user=postgres password=postgres dbname=postgres sslmode=disable")
+	dbinfo := fmt.Sprintf("host=centos port=5432 user=postgres password=postgres dbname=postgres sslmode=disable")
 
 	db, err := sql.Open("postgres", dbinfo)
 
