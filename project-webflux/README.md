@@ -89,9 +89,9 @@ Percent,	Java Response AVR (ms), 	Native Response AVR (ms),	Go AVR Response
 ### The Memory Percentages
 Java, Native compiled Java and Go application results.
 These values are of 16GB of memory, therefore;
-* 5,5 percent approximately equals to 900MB
-* 4,5 percent approximately equals to 737MB 
-* 0.25 percent approximately equals to 40MB
+* 5,5 percent approximately equals to **900MB**
+* 4,5 percent approximately equals to **737MB** 
+* 0.25 percent approximately equals to **40MB**
 
 ```
 Java Memory %	Native Memory %	GO Memory %
