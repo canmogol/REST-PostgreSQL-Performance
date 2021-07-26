@@ -46,3 +46,13 @@ This command will create a native executable under the `target` folder.
 mvn -Pnative -DskipTests package
 ```
 
+**How to Run**
+
+You'll need a PostgreSQL instance with some data in it. You can use the `postgres-docker-compose.yml` file under the `docker-compose` folder.
+
+First you need to run the docker-compose on the `postgres-docker-compose.yml` file, it should create a PostgreSQL instance with the necessary `city` table and data. 
+
+```
+cd ../docker-compose
+docker-compose -f postgres-docker-compose.yml up
+```
