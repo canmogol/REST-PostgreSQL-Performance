@@ -61,6 +61,8 @@ docker-compose -f postgres-docker-compose.yml up
 
 The following are the measurements on memory, cpu and avarage response times for `project-webflux` as Java and Native compiled Java application with the `go-postgresql-rest` application as the Go application.
 
+The average startup time for the Java application is 2,5 seconds, after compiling to native the average is around 90ms, similar to the Go application.
+
 Here is the `ab` command used in the test, first 1000 requests are discarded.
 ```
 for i in {1..100}; do ab -n 500 -c 20 "http://localhost:8080/city/" ; sleep 1; done
