@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.fererlab</groupId>
+    <artifactId>FatJar</artifactId>
+    <packaging>jar</packaging>
+    <version>1.4.0</version>
+
+    <name>FatJar</name>
+    <description>FatJar simple API to quick prototyping and portable web services</description>
+    <url>https://github.com/canmogol/FatJar</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/canmogol/FatJar/blob/master/LICENSE.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Can Mogol</name>
+            <email>canmogol@gmail.com</email>
+            <organization>FererLab</organization>
+            <organizationUrl>http://fererlab.com/</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/canmogol/FatJar</url>
+        <connection>scm:git@github.com:canmogol/FatJar.git</connection>
+        <developerConnection>scm:git@github.com:canmogol/FatJar.git</developerConnection>
+    </scm>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <compiler.source>1.8</compiler.source>
+        <compiler.target>1.8</compiler.target>
+
+    </properties>
+
+    <build>
+        <finalName>FatJar-Example</finalName>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <excludes>
+                    <exclude>**</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>${compiler.source}</source>
+                    <target>${compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <Main-Class>sample.Main</Main-Class>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
+                            <dependencyReducedPomLocation>
+                                ${project.build.directory}/dependency-reduced-pom.xml
+                            </dependencyReducedPomLocation>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.dslplatform</groupId>
+            <artifactId>dsl-json-java8</artifactId>
+            <version>1.9.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.undertow</groupId>
+            <artifactId>undertow-core</artifactId>
+            <version>2.2.7.Final</version>
+        </dependency>
+    </dependencies>
+
+</project>
