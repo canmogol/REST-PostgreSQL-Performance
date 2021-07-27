@@ -1,4 +1,4 @@
-package nl.ymor.webflux;
+package com.canmogol.webflux;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

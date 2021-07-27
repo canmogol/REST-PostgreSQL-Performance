@@ -1,4 +1,4 @@
-package nl.ymor.webflux;
+package com.canmogol.webflux;
 
 import io.r2dbc.postgresql.PostgresqlConnectionConfiguration;
 import io.r2dbc.postgresql.PostgresqlConnectionFactory;

@@ -1,4 +1,4 @@
-package nl.ymor.webflux;
+package com.canmogol.webflux;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
