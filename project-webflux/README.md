@@ -104,6 +104,8 @@ These values are of 16GB of memory, therefore;
 * 0.55 percent approximately equals to **90MB** (Node App)
 * 5 percent approximately equals to **820MB** (Micronaut Java)
 * 4 percent approximately equals to **655MB** (Micronaut Native)
+* 0.08 percent approximately equals to **13MB** (PHP)
+* 0,34 percent approximately equals to **56MB** (Python)
 
 | Java Memory % | Native Memory % | GO Memory % | Node Memory % | Micronaut % | Micronaut Native % | PHP % | Python/Flask % |
 | ------------- | --------------- | ----------- | ------------- | ----------- | ------------------ | ----- | -------------- |
