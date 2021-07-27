@@ -59,7 +59,7 @@ docker-compose -f postgres-docker-compose.yml up
 
 ## Test Results
 
-The following are the measurements on memory, cpu and avarage response times for `project-webflux` as Java and Native compiled Java application with the `go-postgresql-rest` application as the Go application, `express-js` as the Node app, `micronaut-rest-r2db` as the Micronaut app.
+The following are the measurements on memory, cpu and avarage response times for `project-webflux` as Java and Native compiled Java application with the `go-postgresql-rest` application as the Go application, `express-js` as the Node app, `micronaut-rest-r2db` as the Micronaut app, `php-pg-rest` as the PHP app, `python-pg-rest` as the python app.
 
 The average startup time for the Java application is 2.5 seconds, after compiling to native the average is around 90ms, similar to the Go application.
 
