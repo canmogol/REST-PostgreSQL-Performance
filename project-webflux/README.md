@@ -59,7 +59,7 @@ docker-compose -f postgres-docker-compose.yml up
 
 ## Test Results
 
-The following are the measurements on memory, cpu and avarage response times for `project-webflux` as Java and Native compiled Java application with the `go-postgresql-rest` application as the Go application.
+The following are the measurements on memory, cpu and avarage response times for `project-webflux` as Java and Native compiled Java application with the `go-postgresql-rest` application as the Go application, `express-js` as the Node app.
 
 The average startup time for the Java application is 2.5 seconds, after compiling to native the average is around 90ms, similar to the Go application.
 
@@ -90,9 +90,10 @@ Percent,	Java Response AVR (ms), 	Native Response AVR (ms),	Go AVR Response(ms),
 ### The Memory Percentages
 Java, Native compiled Java and Go application results.
 These values are of 16GB of memory, therefore;
-* 5,5 percent approximately equals to **900MB**
-* 4,5 percent approximately equals to **737MB** 
-* 0.25 percent approximately equals to **40MB**
+* 5,5 percent approximately equals to **900MB** (Native compiled Spring WebFlux)
+* 4,5 percent approximately equals to **737MB** (Java Spring WebFlux)
+* 0.25 percent approximately equals to **40MB** (Go App)
+* 0.2555 percent approximately equals to **90MB** (Node App)
 
 ```
 Sample	Java Memory %	Native Memory %	GO Memory %	Node Memory %
