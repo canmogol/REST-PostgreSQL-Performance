@@ -1,0 +1,15 @@
+micronaut:
+  application:
+    name: micronautRestR2db
+r2dbc:
+  datasources:
+    default:
+      schema-generate: NONE
+      dialect: POSTGRES
+      url: r2dbc:postgresql://centos:5432/postgres
+      username: postgres
+      password: 'postgres'
+datasources:
+  default:
+    url: jdbc:postgresql://centos:5432/postgres
+

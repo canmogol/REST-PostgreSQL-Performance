@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.canmogol
+testFramework: junit
+sourceLanguage: java
+buildTool: maven
+features: [annotation-api, app-name, data, data-r2dbc, graalvm, http-client, java, java-application, junit, logback, maven, netty-server, postgres, r2dbc, readme, shade, testcontainers, yaml]
