@@ -3,6 +3,10 @@
 $dbconn = pg_connect("host=centos dbname=postgres user=postgres password=postgres")
     or die('Could not connect: ' . pg_last_error());
 
+//$offset = rand(1, 100);
+//$limit = rand(3900, 4000);
+//$query = 'SELECT * FROM city order by id offset '.$offset.' limit '.$limit;
+
 $query = 'SELECT * FROM city';
 
 $result = pg_query($dbconn, $query) 
