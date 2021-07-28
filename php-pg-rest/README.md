@@ -4,7 +4,7 @@ You need to install the latest version of the PHP, after that you can run the ph
 with the following command.
 
 ```
-php -S 192.168.68.116:8000 -t php-pg-json
+php -S 192.168.68.116:8000 -t php-pg-rest
 ```
 
 You can find the test results in the `project-webflux`.
