@@ -1,0 +1,14 @@
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: city_route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
+          filters:
+            - City
